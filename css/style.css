@@ -1,0 +1,87 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#screen{
+    width: 500px;
+    height: 850px;
+    margin: 20px auto;
+    border: 2px solid black;
+    border-radius: 20px;
+}
+
+header{
+    height: 400px;
+    background-image: url(../img/img1.JPG);
+    background-size: cover;
+    border-radius: 20px 20px 0 0;
+}
+
+#refresh{
+    position: relative;
+    left: 450px;
+    top: 20px;
+    font-size: 24px;
+    color: green;
+    cursor: pointer;
+}
+
+#date{
+    text-align: center;
+    font-size: 36px;
+    padding: 40px;
+    color: lightblue;
+}
+
+main{
+    height: 350px;
+}
+
+footer{
+    height: 96px;
+
+    border-radius: 0 0 20px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+li{
+    list-style-position: inside;
+    list-style-type: none;
+    font-size: 24px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid black;
+}
+
+input{
+    height: 60px;
+    width: 450px;
+    font-size: 24px;
+    border-radius: 20px;
+    outline: none;
+    padding: 10px;
+}
+
+.fa-plus-circle{
+    font-size: 36px;
+    padding-right: 3px;
+    color: green;
+    cursor: pointer;
+}
+
+.fa-trash-alt:hover{
+    cursor: pointer;
+}
+
+.fa-check-circle{
+    color: green;
+}
+
+.lineThrough{
+    text-decoration: line-through;
+}
