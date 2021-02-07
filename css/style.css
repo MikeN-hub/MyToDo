@@ -4,11 +4,11 @@
     box-sizing: border-box;
 }
 
-#screen{
+.container{
     width: 500px;
-    height: 850px;
-    margin: 20px auto;
+    height: 900px;
     border: 2px solid black;
+    margin: 10px auto;
     border-radius: 20px;
 }
 
@@ -19,69 +19,64 @@ header{
     border-radius: 20px 20px 0 0;
 }
 
-#refresh{
+#refreshBtn{
     position: relative;
+    top: 10px;
     left: 450px;
-    top: 20px;
-    font-size: 24px;
-    color: green;
+    color: chartreuse;
     cursor: pointer;
 }
 
-#date{
+#dateElement{
+    padding-top: 30px;
     text-align: center;
     font-size: 36px;
-    padding: 40px;
-    color: lightblue;
+    color: green;
 }
 
 main{
-    height: 350px;
+    height: 428px;
+    /* background-color: blueviolet; */
 }
 
-footer{
-    height: 96px;
-
-    border-radius: 0 0 20px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-li{
-    list-style-position: inside;
+#toDoList{
+    min-height: 100px;
     list-style-type: none;
     font-size: 24px;
+}
+
+.item{
+    min-height: 50px;
     display: flex;
     justify-content: space-between;
-    padding: 10px;
+    align-items: center;
     border-bottom: 1px solid black;
 }
 
-input{
-    height: 60px;
-    width: 450px;
-    font-size: 24px;
-    border-radius: 20px;
-    outline: none;
-    padding: 10px;
-}
-
-.fa-plus-circle{
+footer{
+    height: 70px;
+    border-radius: 0 0 20px 20px;
     font-size: 36px;
-    padding-right: 3px;
-    color: green;
-    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: blue; */
 }
 
-.fa-trash-alt:hover{
-    cursor: pointer;
+#input{
+    font-size: 36px;
+    border-radius: 10px;
+    outline: none;
 }
 
 .fa-check-circle{
     color: green;
 }
 
-.lineThrough{
+.fa-trash-alt{
+    cursor: pointer;
+}
+
+.line-through{
     text-decoration: line-through;
 }

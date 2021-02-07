@@ -3,31 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToDo List</title>
+    <title>My ToDo</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">
     <script src="main.js" defer></script>
-
 </head>
-<body>
-    
-    <div id="screen">
-        <header>
-            <div id="refresh">
-                <i class="fas fa-sync-alt"></i>
-            </div>
-            <div id="dateElement"></div>
-        </header>
-        <main>
-            <ul id="list">
 
+<body>
+
+    <div class="container">
+        <header>
+            <i class="fas fa-sync-alt fa-2x" id="refreshBtn"></i>
+            <div id="dateElement">03.02.2021</div>
+        </header>
+    
+        <main>
+            <ul id="toDoList">
+    
             </ul>
         </main>
+            
         <footer>
-            <i id="addTaskBtn" class="fas fa-plus-circle"></i>
-            <input type="text" placeholder="Add ToDo">
+            <div id="newToDo">
+                <i class="fas fa-plus-circle"></i>
+                <input type="text" id="input" placeholder="Add a ToDo">
+            </div>
         </footer>
     </div>
-
+    
 </body>
 </html>

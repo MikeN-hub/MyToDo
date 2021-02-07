@@ -1,124 +1,105 @@
-const refreshBtn = document.getElementById('refresh');
+// select elements
+const refreshBtn = document.getElementById('refreshBtn');
 const dateElement = document.getElementById('dateElement');
-const list = document.getElementById('list');
-const addTaskBtn = document.getElementById('addTaskBtn');
-const input = document.querySelector('input');
+const toDoList = document.getElementById('toDoList');
+const input = document.getElementById('input');
 
-let currentDate = new Date();
-let dateOptions = {weekday: 'long', day: 'numeric', month: 'long'};
-dateElement.innerHTML = currentDate.toLocaleDateString('en-US', dateOptions);
+// define elements view by adding special classes
+const CHECK = 'fa-check-circle';
+const UNCHECK = 'fa-circle';
+const LINE_THROUGH = 'line-through';
 
-let toDoList;
-let id;
+// add Variables
+let LIST = [];
+let id = 0;
 
-// load from local storage
-let data = localStorage.getItem('TODO')
+// show proper date
+let date = new Date();
+let options = {weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'};
+dateElement.innerHTML = date.toLocaleDateString('en-us', options);
 
+// clear local storage
+refreshBtn.onclick = ()=>{
+    localStorage.clear();
+    location.reload();
+}
+
+// read from local storage
+let data = localStorage.getItem('TODO');
 if(data){
-    toDoList = JSON.parse(data);
-    id = toDoList.length;
-    loadList(toDoList);
+    LIST = JSON.parse(data);
+    id = LIST.length;
+    loadList(LIST);
 }
 else{
-    toDoList = [];
+    LIST = [];
     id = 0;
 }
 
-// Icons view
-const CHECK = "fa-check-circle";
-const UNCHECK = "fa-circle";
-const LINETHROUGH = "lineThrough";
-
-//load items to the user interface
+// show things to user
 function loadList(array){
-    array.forEach(function(item){
-        addTask(item.name, item.id, item.done, item.trash)
-    })
+    array.forEach(element => {
+        addToDo(element.name, element.id, element.done, element.trash)
+    });
 }
 
-//refresh local storage
-refreshBtn.onclick = function(){
-    localStorage.clear()
-}
-
-function addTask(taskName, id, done, trash){
-    if(trash) return;
-    let DONE = done ? CHECK : UNCHECK;
-    let LINE = done ? LINETHROUGH : "";
-    let task = `<li class="task">
-        <i class="far ${DONE}" job="complite" id="${id}"></i>
-        <p class="taskText ${LINE}"> ${taskName} </p>
-        <i class="far fa-trash-alt" job="delete" id=${id}></i> 
-    </li>`;
-    list.insertAdjacentHTML("beforeend", task)
-}
-
-function compliteToDo(elem){
-    elem.classList.toggle(CHECK);
-    elem.classList.toggle(UNCHECK);
-    elem.parentNode.querySelector('.taskText').classList.toggle(LINETHROUGH);
-
-    toDoList[elem.id].done = toDoList[elem.id].done ? false : true;
-}
-
-function removeToDo(elem){
-    elem.parentNode.parentNode.removeChild(elem.parentNode);
-
-    toDoList[elem.id].trash = true;
-}
-
+// events
 document.addEventListener('keyup', (e)=>{
-    const toDo = input.value;
-    if ( e.key == 'Enter' && toDo ){
-        addTask(toDo, id, false, false);
-        input.value = '';
-        let task = {
-            name: toDo,
-            id: id,
-            done: false,
-            trash: false
+    if(e.key == 'Enter'){
+        let toDo = input.value;
+        if(toDo){
+            addToDo(toDo, id, false, false)
+            LIST.push({
+                name: toDo,
+                id: id,
+                done: false,
+                trash: false
+            })
+            localStorage.setItem('TODO', JSON.stringify(LIST)); //save to local storage
+            id++;
         }
-        toDoList.push(task);
-
-        // save to local storage
-        localStorage.setItem('TODO', JSON.stringify(toDoList))
-
-        id++;
+        input.value = '';
     }
 })
 
-addTaskBtn.addEventListener('click', function(e){
-    const toDo = input.value;
-    if(input.value){
-        addTask(toDo, id, false, false);
-        input.value = '';
-        let task = {
-            name: toDo,
-            id: id,
-            done: false,
-            trash: false
-        }
-        toDoList.push(task);
-
-        // save to local storage
-        localStorage.setItem('TODO', JSON.stringify(toDoList))
-
-        id++;
-    }
-})
-
-// Target items created dinamically
-list.addEventListener('click', (e)=>{
+toDoList.addEventListener('click', (e)=>{
     let element = e.target;
     let elementJob = element.attributes.job.value;
-    if(elementJob == 'complite'){
-        compliteToDo(element);
+    if(elementJob == 'complete'){
+        completeToDo(element)
     }
     else if(elementJob == 'delete'){
         removeToDo(element);
     }
+    localStorage.setItem('TODO', JSON.stringify(LIST)); //save to local storage
+});
 
-    // save to local storage
-    localStorage.setItem('TODO', JSON.stringify(toDoList))
-})
+// functions
+function addToDo(toDo, id, done, trash){
+    if(trash) return;
 
+    let DONE = done ? CHECK : UNCHECK;
+    let LINE = done ? LINE_THROUGH : '';
+
+    let item = `<li class="item">
+    <i class="far ${DONE}" job="complete" id=${id}></i>
+    <p class="toDoText ${LINE}">${toDo}</p>
+    <i class="far fa-trash-alt" job="delete" id=${id}></i>
+    </li>`;
+    if(toDo){
+        toDoList.insertAdjacentHTML('beforeend', item);
+    }
+}
+
+function completeToDo(elem){
+    elem.classList.toggle(CHECK);
+    elem.classList.toggle(UNCHECK);
+    elem.parentNode.querySelector('.toDoText').classList.toggle(LINE_THROUGH);
+
+    LIST[elem.id].done = LIST[elem.id].done ? false : true;
+}
+
+function removeToDo(elem){
+    elem.parentNode.parentNode.removeChild(elem.parentNode);
+    LIST[elem.id].trash = true;
+}
